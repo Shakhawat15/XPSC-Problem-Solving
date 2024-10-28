@@ -9,45 +9,42 @@ int main()
 
     int n;
     cin >> n;
-    vector<int> v(n);
+    deque<int> dq;
 
     for (int i = 0; i < n; i++)
     {
-        cin >> v[i];
+        int a;
+        cin >> a;
+        dq.push_back(a);
     }
 
     int serejaPoint = 0, dimaPoint = 0;
 
-    int left = 0, right = n - 1;
-
-    while (left < right)
+    while (!dq.empty())
     {
-        if (v[left] > v[right])
+        if (dq.front() > dq.back())
         {
-            serejaPoint += v[left];
-            left++;
+            serejaPoint += dq.front();
+            dq.pop_front();
         }
         else
         {
-            serejaPoint += v[right];
-            right--;
+            serejaPoint += dq.back();
+            dq.pop_back();
         }
-
-        if (v[left] > v[right])
+        if (dq.size() != 0)
         {
-            dimaPoint += v[left];
-            left++;
+            if (dq.front() > dq.back())
+            {
+                dimaPoint += dq.front();
+                dq.pop_front();
+            }
+            else
+            {
+                dimaPoint += dq.back();
+                dq.pop_back();
+            }
         }
-        else
-        {
-            dimaPoint += v[right];
-            right--;
-        }
-    }
-
-    if (n % 2 != 0)
-    {
-        serejaPoint += v[left];
     }
 
     cout << serejaPoint << " " << dimaPoint << endl;
