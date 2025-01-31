@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-
+#define ll long long
 using namespace std;
 
 int main()
@@ -11,28 +11,36 @@ int main()
     cin >> n >> q;
 
     vector<int> a(n);
-    for (int i = 0; i < n; i++)
-        cin >> a[i];
 
-    vector<int> b(n, 0);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+    }
+
+    vector<int> d(n + 1);
     for (int i = 0; i < q; i++)
     {
         int l, r;
         cin >> l >> r;
         l--, r--;
-        b[l]++;
-        b[r + 1]--;
+        d[l]++;
+        d[r + 1]--;
     }
 
-    for (int i = 1; i < n; i++)
-        b[i] = b[i - 1] + b[i];
+    for (int i = 1; i <= n; i++)
+    {
+        d[i] = d[i - 1] + d[i];
+    }
 
-    sort(a.begin(), a.end());
-    sort(b.begin(), b.end());
+    sort(a.rbegin(), a.rend());
+    sort(d.rbegin(), d.rend());
 
-    int ans = 0;
+    ll ans = 0;
+
     for (int i = 0; i < n; i++)
-        ans += a[i] * b[i];
+    {
+        ans += 1LL * a[i] * d[i];
+    }
 
     cout << ans << endl;
 
